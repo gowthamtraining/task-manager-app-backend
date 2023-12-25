@@ -8,8 +8,9 @@ const CreateTask = async (req, res) => {
         if (!task) {
             return res.status(500).json({ msg: "Failed to create task" });
         }
-
-        res.status(200).json(task);
+        else{
+        res.status(200).json(task)
+        };
     } catch (error) {
         if (error.name === 'ValidationError' && error.errors && error.errors.name) {
             // Handle validation error for 'name' field
