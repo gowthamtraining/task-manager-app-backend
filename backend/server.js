@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(cors({
-    origin:["http://localhost:3001","https://mern-task-manager-app-0p03.onrender.com/"]
+    origin:["http://localhost:3000","https://mern-task-manager-app-api-anox.onrender.com"]
 }))
 app.use("/api/task",TaskRouter)
 app.use(express.urlencoded({extended:false}))
