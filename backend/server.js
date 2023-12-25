@@ -2,12 +2,16 @@ const express = require("express")
 const app = express()
 const env = require("dotenv").config()
 const mongodb = require("mongoose")
+const cors = require("cors")
 
 const TaskRouter  = require("./routes/taskroutes")
 
 const PORT = process.env.PORT || 5000
 
 app.use(express.json())
+app.use(cors({
+    origin:["http://localhost:3000/","http://mern-task-manager-app.onrender.com"]
+}))
 app.use("/api/task",TaskRouter)
 app.use(express.urlencoded({extended:false}))
 

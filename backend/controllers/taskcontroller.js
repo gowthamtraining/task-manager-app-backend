@@ -1,19 +1,25 @@
 const Task = require("../model/servermodel")
 
 
-const CreateTask = async(req,res)=>{
+const CreateTask = async (req, res) => {
     try {
-        const task = await Task.create(req.body,{
-            new:true,
-            runValidators:true
-        })
-        res.status(200).json(task)
+        const task = await Task.create(req.body);
+
+        if (!task) {
+            return res.status(500).json({ msg: "Failed to create task" });
+        }
+
+        res.status(200).json(task);
     } catch (error) {
-        res.status(500).json({msg:error.message})
+        if (error.name === 'ValidationError' && error.errors && error.errors.name) {
+            // Handle validation error for 'name' field
+            return res.status(400).json({ msg: 'Please provide a valid name' });
+        }
+
+        res.status(500).json({ msg: error.message });
     }
-    console.log(req.body)
-    res.send("hell")
-}
+};
+
 
 const GetallTask = async (req,res)=>{
     try {
@@ -39,7 +45,7 @@ const DeleteTaskById = async(req,res)=>{
     try {
         const { id } = req.params;
         const task = await Task.findByIdAndDelete(id);
-        console.log(task)
+        
 
         if (!task) {
             return res.status(404).json(`There is no data for this ${id}`);
