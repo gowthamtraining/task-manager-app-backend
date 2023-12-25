@@ -8,7 +8,7 @@ const TaskRouter  = require("./routes/taskroutes")
 
 const PORT = process.env.PORT || 5000
 app.use(cors({
-    origin: ["https://mern-task-manager-app-0p03.onrender.com", "http://localhost:3000"],
+    origin: ["*"],
     optionsSuccessStatus: 200,
 }));
 

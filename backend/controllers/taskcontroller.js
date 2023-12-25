@@ -25,7 +25,12 @@ const CreateTask = async (req, res) => {
 const GetallTask = async (req,res)=>{
     try {
         const tasks = await Task.find()
+        if(tasks){
         res.status(200).json(tasks)
+        }
+        else{
+            res.send(404).json(tasks)
+        }
     } catch (error) {
         res.status(500).json({msg:error.message})
     }
